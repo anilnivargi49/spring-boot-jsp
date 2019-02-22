@@ -1,9 +1,12 @@
 run this command in console
-   mvn clean package
+      mvn clean install
+   OR
+      mvn clean install package
 run this command in console
-   mvn clean spring-boot:run
-try to access this url
-    http://localhost:8080/testjsp
+     mvn spring-boot:run
+
+try to access this url(For employee list)
+    http://localhost:8080/list
 
 For more detail, visit here:
-      https://www.surasint.com/spring-boot-jsp/
+      
