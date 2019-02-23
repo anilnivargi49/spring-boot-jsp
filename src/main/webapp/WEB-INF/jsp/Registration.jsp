@@ -4,6 +4,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>EMS - Employee Registration</title>
+<style>
+td, th {
+  font-family: arial, sans-serif;
+}
+</style>
 <script type="text/javascript">
 	function validate() {
 		if (document.forms["employee"]["fname"].value == "") {
