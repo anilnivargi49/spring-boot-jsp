@@ -7,10 +7,10 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
-public class MyApplication {
+public class EMSApplication {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(MyApplication.class, args);
+        SpringApplication.run(EMSApplication.class, args);
     }
     
     @Bean
