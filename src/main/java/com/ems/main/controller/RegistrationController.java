@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ems.main.dto.EmployeeDTO;
 import com.ems.main.model.Employee;
 import com.ems.main.repository.EmployeeRepository;
+import com.ems.main.service.EmployeeService;
 
 @Controller
 public class RegistrationController {
 
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private EmployeeService employeeService;
 	
 	@GetMapping("/registration")
 	public String reg(Map<String, Object> model) {
@@ -31,67 +32,28 @@ public class RegistrationController {
 	
 	@PostMapping("/home")
 	public String createEmployee(@ModelAttribute("employee") EmployeeDTO empDto) {
-		
-		Employee emp = convertDtoToModel(empDto);
-		emp = employeeRepository.save(emp);
+		employeeService.createOrUpdateEmployee(empDto);
 		return "redirect:/list";	
 	}
 	
 	@GetMapping("/list")
 	public String listOfEmployee(Model model) {
-		List<Employee> list = employeeRepository.findAll();
-		List<EmployeeDTO> employeeList = list.stream()
-	            .map(EmployeeDTO::new)
-	            .collect(Collectors.toCollection(ArrayList::new));
+		List<EmployeeDTO> employeeList = employeeService.getAllEmployee();
 		model.addAttribute("empList", employeeList);
 		return "employeeList";
 	}
 	
 	@PostMapping("/delete")
 	public String deleteEmployee(@RequestParam("id") String id) {
-		
-		employeeRepository.deleteById(Long.parseLong(id));
+		employeeService.deleteEmployee(Long.parseLong(id));
 		return "redirect:/list";		
 	}
 	
 	@GetMapping("/edit")
 	public String editEmployee(@RequestParam("id") String id, Map<String, Object> model) {
-		Employee emp = employeeRepository.getOne(Long.parseLong(id));
-		EmployeeDTO empDTO = convertModelToDTO(emp);
+		EmployeeDTO empDTO = employeeService.editEmployee(Long.parseLong(id));
 		model.put("employee", empDTO);
 		return "Registration";
-	}
-	
-	private Employee convertDtoToModel(EmployeeDTO empDto) {
-		Employee emp = new Employee();
-		if (empDto.getId() != null) {
-			emp.setId(empDto.getId());
-		}
-		emp.setAge(empDto.getAge());
-		emp.setBloodGp(empDto.getBloodGp());
-		emp.setEmailId(empDto.getEmailId());
-		emp.setEmpId(empDto.getEmpId());
-		emp.setFirstName(empDto.getFirstName());
-		emp.setLastName(empDto.getLastName());
-		emp.setMobileNo(empDto.getMobileNo());
-		emp.setPersonalEmail(empDto.getPersonalEmail());
-		emp.setUserName(empDto.getUserName());
-		return emp;
-	}
-	
-	private EmployeeDTO convertModelToDTO(Employee emp) {
-		EmployeeDTO empDTO = new EmployeeDTO();
-		empDTO.setId(emp.getId());
-		empDTO.setAge(emp.getAge());
-		empDTO.setBloodGp(emp.getBloodGp());
-		empDTO.setEmailId(emp.getEmailId());
-		empDTO.setEmpId(emp.getEmpId());
-		empDTO.setFirstName(emp.getFirstName());
-		empDTO.setLastName(emp.getLastName());
-		empDTO.setMobileNo(emp.getMobileNo());
-		empDTO.setPersonalEmail(emp.getPersonalEmail());
-		empDTO.setUserName(emp.getUserName());
-		return empDTO;
 	}
 	
 }
