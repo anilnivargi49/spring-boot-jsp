@@ -95,7 +95,9 @@ td, th {
     </tr>
     <tr>
         <td colspan="2"><input type="submit" value="<c:out value="${employee.id != null ? 'Update' : 'Register' }" />"
-         onclick="return validate();">&nbsp;&nbsp; <a href="/list">Employee List</a>&nbsp;<b>|</b>&nbsp;<a href="/registration">Registration</a></td>
+         onclick="return validate();">&nbsp;&nbsp; <a href="/list">Employee List</a>&nbsp;
+         <c:if test="${employee.id ne null}"><b>|</b>&nbsp;<a href="/registration">Registration</a></c:if>
+         </td>
     </tr>
 </table>
 </form:form>

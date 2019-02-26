@@ -1,9 +1,7 @@
 package com.ems.main.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ems.main.dto.EmployeeDTO;
-import com.ems.main.model.Employee;
-import com.ems.main.repository.EmployeeRepository;
 import com.ems.main.service.EmployeeService;
 
 @Controller
